@@ -1,0 +1,15 @@
+(* uri -- URI parsing, printing & quoting *)
+library
+
+  signature URI
+
+  structure Uri
+
+is
+
+  (* dependencies *)
+  $SMACKAGE/cmlib/v1/cmlib.cm
+  $SMACKAGE/parcom/v1/parcom.cm
+
+  uri.sig
+  uri.sml
