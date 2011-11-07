@@ -1,6 +1,6 @@
 require: cmlib v1
 require: parcom v1
-provides: uri 0.1.0
+provides: uri 0.2.0
 remote: git git://github.com/finrod/uri.git
 description: URI parsing, printing & quoting for SML
 keywords: web, URI
