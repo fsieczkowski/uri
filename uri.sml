@@ -16,6 +16,7 @@ struct
     type auth = string option * host * int option
     type uri  = { scheme : string option, auth : auth option, path : path,
 		  query : string option, fragment : string option }
+    exception Uri of string
 
     (* helper definitions *)
     val delims    = String.explode ":/?#[]@"
@@ -140,9 +141,9 @@ struct
     fun mkRec (u : {scheme : string option, auth : auth option, path : path,
 		    query  : string option, fragment : string option}) =
 	maybe
-	    (Sum.map (fn e => "Malformed scheme:\n" ^ e)
+	    (Sum.sum (fn e => raise Uri ("Malformed scheme:\n" ^ e))
 		     (fn _ => u) o parseString (schemeP << eos))
-	    (Sum.INR u)
+	    u
 	    (#scheme u)
     fun mkUri scheme authO pth queryO fragO =
 	mkRec {scheme = SOME scheme, auth = authO, path = pth,

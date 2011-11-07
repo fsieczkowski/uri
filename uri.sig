@@ -8,16 +8,17 @@ sig
     datatype path = ABS of string list | REL of string list
     type     auth = string option * host * int option
     type uri
+    exception Uri of string
 
     (* Smart constructors for URIs and relative references. They sanitize
        the input, and so might fail. *)
     val mkUri  : string -> auth option -> path -> string option -> string option
-		 -> (string, uri) Sum.sum
+		 -> uri
     val mkRel  : auth option -> path -> string option -> string option
-		 -> (string, uri) Sum.sum
+		 -> uri
     val mkRec  : {scheme : string option, auth : auth option, path : path,
 		  query  : string option, fragment : string option}
-		 -> (string, uri) Sum.sum
+		 -> uri
 
     (* Parsers for URIs and relative references. *)
     (* This parser allows all well-formed, non-relative URIs *)
